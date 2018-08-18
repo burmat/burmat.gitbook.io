@@ -13,7 +13,10 @@ description: >-
 
 ![\[ https://github.com/burmat \]](.gitbook/assets/github.png)
 
-![\[ https://www.hackthebox.eu/profile/1453 \]](.gitbook/assets/hackthebox.png)
+![\[ https://www.hackthebox.eu/profile/1453 \]](.gitbook/assets/hackthebox%20%281%29.png)
+
+  
+
 
 
 
