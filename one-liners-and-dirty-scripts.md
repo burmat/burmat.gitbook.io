@@ -125,6 +125,8 @@ Run the following script: [https://github.com/burmat/burmatscripts/blob/master/b
 
 ![\(Example Output from my Kali VM\)](.gitbook/assets/finding-vulnerable-applications-linux.png)
 
+_\(thanks to_ [_chryzsh_](https://github.com/chryzsh) _for doing the heavy lifting\)_
+
 #### "Proc Mon" \(IppSec\) Script 
 
 One of the handiest scripts to find running jobs and processes in real time. Thanks to [IppSec](https://twitter.com/ippsec) for sharing it with the world:
