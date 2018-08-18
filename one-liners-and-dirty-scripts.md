@@ -117,9 +117,13 @@ Coming Soon!
 
 #### Finding Vulnerable Applications \(Linux\)
 
-```text
-Coming Soon!
-```
+This one is pretty dirty, and pretty awesome. Run a one-liner on your victim to generate a list of packages \(`rpm` **or** `dpkg`\) on the machine \(`/tmp/packages.txt`\). Copy this file to one that has `searchsploit`, and run the script.
+
+Generate the file with:  `FILE="packages.txt"; FILEPATH="/tmp/$FILE"; /usr/bin/rpm -q -f /usr/bin/rpm >/dev/null 2>&1; if [ $? -eq 0 ]; then rpm -qa --qf "%{NAME} %{VERSION}\n" | sort -u > $FILEPATH; echo "kernel $(uname -r)" >> $FILEPATH; else dpkg -l | grep ii | awk '{print $2 " " substr($3,1)}' > $FILEPATH; echo "kernel $(uname -r)" >> $FILEPATH; fi; echo ""; echo "[>] Done. Transfer $FILEPATH to your computer and run: "; echo ""; echo "./packages_compare.sh /path/to/$FILE"; echo "";`
+
+Run the following script: [https://github.com/burmat/burmatscripts/blob/master/bash/pkg\_lookup.sh](https://github.com/burmat/burmatscripts/blob/master/bash/pkg_lookup.sh)
+
+![\(Example Output from my Kali VM\)](.gitbook/assets/finding-vulnerable-applications-linux.png)
 
 #### "Proc Mon" \(IppSec\) Script 
 
