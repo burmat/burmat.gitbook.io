@@ -9,7 +9,7 @@ description: >-
 
 ## NOTE-TAKING
 
-Taking great and **meaningful** notes is one the most important parts of the PWK lab experience and the OSCP exam. Below are the useful things I did to make my experience better and more educational. I mainly used Sublime and raw text files but the general structure, applications, and rules can be tweaked using your favorite text editor or note taker. I used the following structure for PWK but eventually transitioned over to using [Cherrytree](https://www.giuspen.com/cherrytree/). I recommend finding something like Cherrytree early-on and get accustomed to it, as it makes exporting your documents much easier.
+Taking great and **meaningful** notes is one the most important parts of the PWK lab experience and the OSCP exam. Below are the useful things I did to make my experience better and more educational. I mainly used Sublime and raw text files but the general structure, applications, and rules can be tweaked using your favorite text editor or note taker. I used the following structure for PWK but eventually transitioned over to using [CherryTree](https://www.giuspen.com/cherrytree/). I recommend finding something like CherryTree early-on and get accustomed to it, as it makes exporting your documents much easier.
 
 ### Shared Folder to VM?
 
@@ -226,5 +226,56 @@ If you don't know your when you want to schedule, no worries! Just plan it well-
 
 Take a shower. Eat some cereal. Grab some coffee. Watch cartoons. Try to relax. Even the most relaxed people might not feel relaxed.  BREATHE. This is your chance to shine.
 
-When the exam opens up, read every word the Offensive Security writes to you. Every email with the exam guidelines.
+When the exam opens up, read every word the Offensive Security writes to you - Every email with the exam guidelines.  Don't get excited and skip any reading because the next time you will try to, you will most likely be exhausted.  
+
+Read the boxes carefully and understand which is the buffer overflow machine and which is the easy machine. I targeted these first. Below is the route I took for the exam and the order in which I chased the boxes:
+
+* **Buffer Overflow \(**_**25pts**_**\)** - I would recommend practicing and learning the buffer overflow exercises from front to back. You should be able to find bad characters in your sleep by the time your exam comes up. This is an easier 25-points because you know exactly what it is going to be and how to study for it. I made this my first priority so I could get it out of the way
+* **The "Easy" Box \(**_**10pts**_**\)** - I fired Metasploit off at the machine. I actually got lucky, because I new already how to exploit this machine and was able to gain SYSTEM relatively quickly
+* **Exercises / Lab Report \(**_**5pts**_**\)** - At this point, I was a little over 2 hours in and I had 40 points \(`bof 25 + easy 10 + lab work 5 = 40`\). I felt incredibly confident, but I still had the remaining 3 boxes in front of me with 30 points to go.
+* **\(x2\) Medium Boxes \(20pts each\)** - It took me roughly 10 hours of screen time to get SYSTEM on both of my medium boxes, but doing so put me into a comfortable place to pass \(80pts total\). At this point, I back-tracked to make sure all of my flags were submitted properly and all of my screenshots were in order.
+* **Hard Box \(25pts\)** - I enumerated this box for roughly 1-2 hours but eventually gave up completely and instead went to sleep.
+
+From start to finish, the only tips I have for the exam follows:
+
+* Get a good night of rest before signing on. Try to "unplug" the night before and do something relaxing. Eat a good breakfast and drink your coffee. Just breath through the anxiety you will probably encounter and walk into the exam confidently.
+* When you get stuck, enumerate things that potentially offer read access. This might be an smb share, an ftp server, or some emails. These ports are probably open for a reason, especially if you can't seem to find credential to continue onward.
+* Mix up the tools you use to bust web directories. Use `gobuster`, `dirbuster`, and `dirb`.  Try not to fall down rabbit holes on the web directories, they do set a few up for you...
+
+### Report Writing
+
+I would recommend trying to cram as much reporting after the exam as possible. Because everything is so fresh in your head, you probably will be able to explain your methodology and actions a little clearer. You might be tired, but if you write as much as you can, you can spend the next morning proof reading and editing. This made it a lot less stressful for me.
+
+I wasn't a huge fan of using their template. I just couldn't fill it up with enough content no matter how I tried. I slimmed it back a little and used the following template:
+
+```text
+1.0 - High Level Summary
+    1.1 - Host Summary:
+        > hostname, IP, OS, ports open / services on them
+        
+    1.2 - Attack Surface Summary
+        > high level overview of exploitable services / potential
+        
+    1.3 - Exploitation Summary
+        > high level overview of the services you exploited
+
+2.0 - Methodology and Walkthrough
+    2.1 - Enumeration
+        > scans and inital discover
+        
+    2.2 - Exploitation
+        > gaining a shell
+        
+    2.3 - Elevation
+        > methods used to gain SYSTEM / root
+
+3.0 - Loot and Code
+    3.1 - Proof
+        > screenshot of whoami, ip, and flag
+        
+    3.2 - Code Used
+        > full exploit code with source and highlights of changes
+```
+
+I used [CherryTree](https://www.giuspen.com/cherrytree/) for this reporting structure and I was able to export it out to one document. Other than screenshots, it had nothing fancy whatsoever. It was left-aligned and looked like a markdown document.  Grab only relevant screenshots and try to only show output you think is relevant. I took the following alias:  `alias sc='gnome-screenshot -ac'` and mapped it to a hotkey. This made it very easy to screen-grab and paste directly into CherryTree.
 
