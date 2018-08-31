@@ -1,8 +1,13 @@
 ---
-description: 'They don''t have to be elegant, they just have to get the job done.'
+description: >-
+  They don't have to be elegant, they just have to get the job done. If I use it
+  and it's not here, it's probably over here:
+  https://github.com/burmat/burmatscripts
 ---
 
 # One-Liners and Dirty Scripts
+
+
 
 ## FILE TRANSFERS
 
