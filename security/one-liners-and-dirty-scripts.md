@@ -142,7 +142,7 @@ Generate the file with:  `FILE="packages.txt"; FILEPATH="/tmp/$FILE"; /usr/bin/r
 
 Run the following script: [https://github.com/burmat/burmatscripts/blob/master/bash/pkg\_lookup.sh](https://github.com/burmat/burmatscripts/blob/master/bash/pkg_lookup.sh)
 
-![\(Example Output from my Kali VM\)](.gitbook/assets/finding-vulnerable-applications-linux.png)
+![\(Example Output from my Kali VM\)](../.gitbook/assets/finding-vulnerable-applications-linux.png)
 
 _\(thanks to_ [_chryzsh_](https://github.com/chryzsh) _for doing the heavy lifting\)_
 

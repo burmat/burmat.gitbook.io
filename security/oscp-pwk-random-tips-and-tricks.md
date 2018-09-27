@@ -170,7 +170,7 @@ $ cd -
 
 I'm executing an alias to go to the root of my project folder, using `grep` to recursively search all files for a specific term \("_xp\_cmdshell"_\), and I'm going back to the machine directory I was in prior to running `gopwk`. This is a perfect summary of how all of what you just read ties together:
 
-![\(Redacted Screen of Results\)](.gitbook/assets/leveraging-your-notes-screen-1.jpg)
+![\(Redacted Screen of Results\)](../.gitbook/assets/leveraging-your-notes-screen-1.jpg)
 
 From this screenshot, I have everything I need to enable `xp_cmdshell` and create an administrator user "burmat". I also have clear indication on what boxes I have used this for and what their IP's are. I even have 2 records in the _**completion\_log.txt**_ file where I actively used this to elevate to SYSTEM.
 
