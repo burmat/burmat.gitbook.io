@@ -56,3 +56,25 @@ I also have one that will tell me when passwords are reset and other concerning 
 
 Now that the item and triggers are set up, all that is left is linking your triggers to actions and send alarms based on the triggers to get the jump on your users / adversaries.
 
+### SELINUX - audit.log
+
+### A More Readable  Form:
+
+Prevent headaches - parse safely:
+
+```text
+cat /var/log/audit/audit.log | audit2why
+```
+
+### Denied:
+
+Look for `denied` events:  `cat /var/log/audit/audit.log | grep denied`
+
+And it makes it easy to generate allow policies: `cat /var/log/audit/audit.log | grep <service> | grep denied | audit2allow -M <service>`
+
+{% hint style="info" %}
+[Allowing Access: audit2allow](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-fixing_problems-allowing_access_audit2allow)
+{% endhint %}
+
+
+
