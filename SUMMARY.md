@@ -4,9 +4,9 @@
 
 ## security / hacking
 
-* [One-Liners and Dirty Scripts](security/one-liners-and-dirty-scripts.md)
-* [OSCP / PWK - Random Tips and Tricks](security/oscp-pwk-random-tips-and-tricks.md)
-* [MSFvenom Cheetsheet](security/msfvenom-cheetsheet.md)
+* [One-Liners and Dirty Scripts](hacking/one-liners-and-dirty-scripts.md)
+* [OSCP / PWK - Random Tips and Tricks](hacking/oscp-pwk-random-tips-and-tricks.md)
+* [MSFvenom Cheetsheet](hacking/msfvenom-cheetsheet.md)
 
 ## systems administration
 
