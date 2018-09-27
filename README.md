@@ -7,13 +7,9 @@ description: >-
 
 # security and systems administration
 
-![\[ n.t.burchfield-at-gmail.com \]](.gitbook/assets/email_icon.png)
-
-![\[ https://www.linkedin.com/in/nathanburchfield \]](.gitbook/assets/linkedin.png)
-
-![\[ https://github.com/burmat \]](.gitbook/assets/github.png)
-
-![\[ https://www.hackthebox.eu/profile/1453 \]](.gitbook/assets/hackthebox%20%281%29.png)
+|  |  |  |  |
+| :---: | :---: | :---: | :---: |
+| ![](.gitbook/assets/email_icon.png) [email](mailto:n.t.burchfield@gmail.com) | ![](.gitbook/assets/linkedin.png) [linkedin](https://www.linkedin.com/in/nathanburchfield) | ![](.gitbook/assets/github.png) [github](https://github.com/burmat) | ![](.gitbook/assets/hackthebox%20%281%29.png) [hackthebox](https://www.hackthebox.eu/profile/1453) |
 
 
 
