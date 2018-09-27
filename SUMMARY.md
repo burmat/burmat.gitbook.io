@@ -10,6 +10,7 @@
 
 ## systems administration
 
+* [Active Directory Administration](sysadmin/active-directory-administration.md)
 * [Exchange Administration](sysadmin/exchange-administration.md)
 * [Log Parsing](sysadmin/log-parsing.md)
 
