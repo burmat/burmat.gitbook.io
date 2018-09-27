@@ -10,5 +10,5 @@
 
 ## systems administration
 
-* [Log Parsing](systems-administration/log-parsing.md)
+* [Log Parsing](sysadmin/log-parsing.md)
 
