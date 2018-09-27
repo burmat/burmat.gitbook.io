@@ -12,5 +12,6 @@
 
 * [Active Directory Administration](sysadmin/active-directory-administration.md)
 * [Exchange Administration](sysadmin/exchange-administration.md)
+* [Helper Commands](sysadmin/helper-commands.md)
 * [Log Parsing](sysadmin/log-parsing.md)
 
