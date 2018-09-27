@@ -4,9 +4,9 @@ description: One of the greatest responsibilities of a sysadmin - Reading logs.
 
 # Log Parsing
 
-### APACHE - HTTP Logs
+## APACHE - HTTP Logs
 
-#### Get Visitor IP's by Count
+### Get Visitor IP's by Count
 
 Get IP address hits by count:
 
@@ -14,7 +14,7 @@ Get IP address hits by count:
 cat access.log | cut -d " " -f 1 | sort | uniq -c | sort -urn
 ```
 
-#### Get Page Requests by IP
+### Get Page Requests by IP
 
 Get the pages hit by a given IP address:
 
@@ -22,9 +22,9 @@ Get the pages hit by a given IP address:
 cat access.log | grep '172.11.1.123' | cut -d "\"" -f 2 | uniq -c
 ```
 
-### ZABBIX - Windows Event Logs
+## ZABBIX - Windows Event Logs
 
-#### Add an Item to a Host:
+### Add an Item to a Host:
 
 Get the Zabbix Agent up and running on an endpoint.  Once you have the agent installed on the host, add it into your Zabbix server. You can specify the type of log you want to have tracked, and can get granular with it. You want to add an item to your new host, similar to:
 
@@ -56,7 +56,7 @@ I also have one that will tell me when passwords are reset and other concerning 
 
 Now that the item and triggers are set up, all that is left is linking your triggers to actions and send alarms based on the triggers to get the jump on your users / adversaries.
 
-### SELINUX - audit.log
+## SELINUX - audit.log
 
 ### A More Readable  Form:
 

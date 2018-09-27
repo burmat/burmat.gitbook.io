@@ -10,5 +10,6 @@
 
 ## systems administration
 
+* [Exchange Administration](sysadmin/system-administrator-one-liners.md)
 * [Log Parsing](sysadmin/log-parsing.md)
 
