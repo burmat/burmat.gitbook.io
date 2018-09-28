@@ -11,12 +11,8 @@ Run the following \(update the `list` to contain valid KB numbers\) to uninstall
 SET list=3133977 3137061 3138612 3138901 3139923
 
 for %%a in (%list%) do (
-	REM echo %windir%\syswow64\wusa.exe /uninstall /kb:%%a /quiet /norestart /log​
 	%windir%\syswow64\wusa.exe /uninstall /kb:%%a /quiet /norestart /log​
 )
-
-
-REM %windir%\syswow64\wusa.exe /uninstall /kb:3035583 /quiet /norestart /log​
 ```
 
 ### Get Remote Host Windows Updates
