@@ -12,7 +12,7 @@ description: >-
 
 Get a total count of messages in your queue\(s\):
 
-`Get-ExchangeServer | Where {$.IsHubTransportServer -eq "true"} | Get-Queue | Where {$.Deliverytype -eq "MapiDelivery"} | Select-Object Identity, NextHopDomain, Status, MessageCount`
+`Get-ExchangeServer | Where {$.IsHubTransportServer -eq "true"} | Get-Queue | Where {$_.Deliverytype -eq "MapiDelivery"} | Select-Object Identity, NextHopDomain, Status, MessageCount`
 
 ###  Per-Mailbox Outbox Items
 
@@ -50,7 +50,7 @@ Here is a useful command to get user information for a given mailbox while sorti
 
 Use the following to get a CSV output of the Message Tracking logs based on a few basic parameters. This is a good way to track individual emails that fail to flow properly:
 
-`Get-MessageTrackingLog -Recipients:user@domain.com -Start "3/1/2018 1:00:00 AM" -End "3/14/2018 11:00:00 PM" | Select {$.Recipients}, {$.RecipientStatus}, * | Export-Csv C:\temp\user-emails.csv`
+`Get-MessageTrackingLog -Recipients:user@domain.com -Start "3/1/2018 1:00:00 AM" -End "3/14/2018 11:00:00 PM" | Select {$_.Recipients}, {$_.RecipientStatus}, * | Export-Csv C:\temp\user-emails.csv`
 
 ## OWA / ACTIVESYNC ADMINISTRATION
 
@@ -66,7 +66,7 @@ You can get a list of devices by username with the following:
 
 I like to check in every few weeks and make sure there are not old devices laying around in the system. You can do this by running a command that will check for any device that have not sync'd in over 365 days. Generate this list with the following:
 
-`$OldDevices = Get-ActiveSyncDevice -ResultSize unlimited | Get-ActiveSyncDeviceStatistics | where {$_.LastSyncAttemptTime -lt (get-date).adddays(-365)}`
+`$OldDevices = Get-ActiveSyncDevice -ResultSize unlimited | Get-ActiveSyncDeviceStatistics | where {$_.LastSyncAttemptTime -lt (Get-Date).AddDays(-365)}`
 
 And to remove them completely, you can use this:
 
