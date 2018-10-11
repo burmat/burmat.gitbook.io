@@ -203,6 +203,12 @@ done
 
 ### Ping Scan \(fast\)
 
+You can use a regular-old for loop:
+
+`for i in {1..254}; do ping -c 1 -W 1 172.1.1.$i | grep 'from'; done`
+
+Or you can try out the following python script:
+
 ```python
 #!/usr/bin/python
 import multiprocessing, subprocess, os
