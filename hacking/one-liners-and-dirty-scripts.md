@@ -245,6 +245,18 @@ if __name__ == '__main__':
         print(ip)
 ```
 
+## REMOTE DESKTOP \(ENABLE / ADD\)
+
+### Enable RDP:
+
+```text
+PS > Set-itemproperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\' -Name "fDenyTSConnections" -value 0
+PS > Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\' -Name "UserAuthentication" -value 1
+PS > Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+```
+
+If you need to add your user to the group, you can use: `NET LOCALGROUP "Remote Desktop Users" domain\user /ADD`. And if you need to disable the firewall altogether: `NetSh Advfirewall set allprofiles state off`
+
 ## CRACKING {#cracking}
 
 ### Password Spray List {#password-spray-list}
