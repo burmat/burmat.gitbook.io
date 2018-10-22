@@ -5,7 +5,7 @@
 ## security / hacking
 
 * [One-Liners and Dirty Scripts](hacking/one-liners-and-dirty-scripts.md)
-* [Domain Enumeration](hacking/domain-enumeration.md)
+* [Domain Exploitation](hacking/domain-exploitation.md)
 * [MSFvenom Cheetsheet](hacking/msfvenom-cheetsheet.md)
 * [OSCP / PWK - Random Tips and Tricks](hacking/oscp-pwk-random-tips-and-tricks.md)
 

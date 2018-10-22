@@ -257,9 +257,9 @@ PS > Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 
 If you need to add your user to the group, you can use: `NET LOCALGROUP "Remote Desktop Users" domain\user /ADD`. And if you need to disable the firewall altogether: `NetSh Advfirewall set allprofiles state off`
 
-## CRACKING {#cracking}
+## CRACKING <a id="cracking"></a>
 
-### Password Spray List {#password-spray-list}
+### Password Spray List <a id="password-spray-list"></a>
 
 Use `exrex` \[[https://github.com/asciimoo/exrex](https://github.com/asciimoo/exrex)\] to generate a custom wordlists to password spray with:
 
@@ -267,7 +267,7 @@ Use `exrex` \[[https://github.com/asciimoo/exrex](https://github.com/asciimoo/ex
 python exrex.py "(Spring|Winter|Autumn|Fall|Summer|Winter)(20)1[78]!"
 ```
 
-### Small Wordlist, Rules {#small-wordlist-rules}
+### Small Wordlist, Rules <a id="small-wordlist-rules"></a>
 
 I got hit with having to crack mscachev2 hashes which can be slow. This is a perfect time to instead try targeted \(small\) wordlists and instead pass in some tried-and-tested rules: `hashcat64.exe -a 0 -m 2100 -r rules/d3adhob0.rule mscachev2hash.txt wordlist.txt -o cracked.txt`  
 
