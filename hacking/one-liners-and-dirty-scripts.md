@@ -201,7 +201,9 @@ for ip in $(cat ~/Documents/labs/targets.txt  | awk '/^[0-9]/ {print $1}'); do
 done
 ```
 
-### Ping Scan \(fast\)
+### Ping Scan
+
+#### Linux Ping Scanning:
 
 You can use a regular-old for loop:
 
@@ -244,6 +246,12 @@ if __name__ == '__main__':
         ip = results.get()
         print(ip)
 ```
+
+#### Windows Ping Scan:
+
+Not the fastest or the cleanest, but it's an easy way to generate a ping scan from a `cmd` prompt:
+
+`FOR /L %i IN (1,1,254) DO ping -n 1 192.168.1.%i | FIND /i "Reply" >> ips.txt`
 
 ## REMOTE DESKTOP \(ENABLE / ADD\)
 
