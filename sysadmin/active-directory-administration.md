@@ -112,6 +112,10 @@ Every few weeks, I run the following \(as Domain Admin\) to ensure the OU I use 
 
 `Get-ADUser -Filter * -SearchBase 'OU=Retire,DC=burmat,DC=co' | Disable-ADAccount` 
 
+### Set Domain User Password
+
+`$uname = 'burmat'; $pass = "Password123!'; $securepass = ConvertTo-SecureString $pass -AsPlainText -Force; Set-DomainUserPassword -Identity $uname -AccountPassword $securepass;`
+
 ## FILE SYSTEM ADMINISTRATION
 
 ### Getting Directory Sizes
