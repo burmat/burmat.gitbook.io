@@ -22,7 +22,7 @@ Get the pages hit by a given IP address:
 cat access.log | grep '172.11.1.123' | cut -d "\"" -f 2 | uniq -c
 ```
 
-### IIS - HTTP Logs
+## IIS - HTTP LOGS
 
 Pretty easy with PowerShell - You can just specify the things you wish to search before the pipe and the noise you want to exclude after the pipe:
 
