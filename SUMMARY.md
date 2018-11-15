@@ -15,4 +15,5 @@
 * [Exchange Administration](sysadmin/exchange-administration.md)
 * [Helper Commands](sysadmin/helper-commands.md)
 * [Log Parsing](sysadmin/log-parsing.md)
+* [Team Foundation Server Administration](sysadmin/team-foundation-server-administration.md)
 
