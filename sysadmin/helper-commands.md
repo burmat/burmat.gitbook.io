@@ -76,3 +76,17 @@ GOTO EXIT
 echo Stop Checking %1
 ```
 
+## POWERSHELL
+
+### Remotely Log User Out
+
+```text
+PS C:\WINDOWS\system32> Invoke-Command -ComputerName 'SERVER01' -ScriptBlock { quser }
+ USERNAME              SESSIONNAME        ID  STATE   IDLE TIME  LOGON TIME
+ admin                 console             1  Active      none   12/24/2018 10:35 AM
+
+PS C:\WINDOWS\system32> Invoke-Command -COmputerName 'SERVER01' -ScriptBlock { logoff 1 }
+```
+
+
+
