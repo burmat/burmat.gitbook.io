@@ -85,7 +85,7 @@ PS C:\WINDOWS\system32> Invoke-Command -ComputerName 'SERVER01' -ScriptBlock { q
  USERNAME              SESSIONNAME        ID  STATE   IDLE TIME  LOGON TIME
  admin                 console             1  Active      none   12/24/2018 10:35 AM
 
-PS C:\WINDOWS\system32> Invoke-Command -COmputerName 'SERVER01' -ScriptBlock { logoff 1 }
+PS C:\WINDOWS\system32> Invoke-Command -ComputerName 'SERVER01' -ScriptBlock { logoff 1 }
 ```
 
 
