@@ -187,3 +187,30 @@ Moving forward, I will be adding in:
 
 I hope this has helped someone, somewhere. It sure was a pain to even get this far so that was my only goal in writing all of this. I'll keep this script and page updated as I continue my journey forward with TFS with that hope in mind. 
 
+### Manually Deleting Workspace via TFS PowerTools
+
+I ended up accidentally running the script as a different user \(Administrator\) during a debugging session and locked up the workspace. Because the scheduled task was running as a different user but against the same workspace and directory structure, there was a conflict. I didn't discover this right away, but eventually I just logged in as the problem user and ran the following:
+
+```text
+## connect to the server and lookup the workspace. delete it.
+PS C:\Users\burmat> Add-PSSnapin Microsoft.TeamFoundation.Powershell
+PS C:\Users\burmat> $tfsServer = Get-TfsServer -Name http://coderepo.burmat.co:8080/tfs/Projects"
+PS C:\Users\burmat> $vcServer = $tfsServer.GetService([Microsoft.TeamFoundation.VersionControl.Client.VersionControlSer
+ver])
+PS C:\Users\burmat> $vcProject = $vcServer.GetTeamProject("PROJECT1")
+PS C:\Users\burmat> $workspace = $vcServer.GetWorkspace("TFS-PROJECT1", $env:USERNAME)
+PS C:\Users\burmat> if ($workspace -ne $null) { Write-Host "FOUND WORKSPACE"; }
+FOUND WORKSPACE
+PS C:\Users\burmat> $vcServer.DeleteWorkspace("TFS-PROJECT1", $env:USERNAME)
+True
+
+## find it again and see if it still exists, you will find it does not:
+PS C:\Users\burmat> $workspace = $vcServer.GetWorkspace("TFS-PROJECT1", $env:USERNAME)
+Exception calling "GetWorkspace" with "2" argument(s): "TF14061: The workspace TFS-RISC1;Administrator does not exist."
+At line:1 char:1
++ $workspace = $vcServer.GetWorkspace("TFS-RISC1", $env:USERNAME)
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : WorkspaceNotFoundException
+```
+
