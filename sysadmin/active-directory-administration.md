@@ -10,6 +10,10 @@ description: This page is dedicated to any and all Active Directory administrati
 
 `Get-ADUser -Filter * -Properties DisplayName, sAMAccountName | Select DisplayName, sAMAccountName` 
 
+### Get Active Win10 Machine Patch Level \(Last Logon in 60 Days\)
+
+`$LastLogon = (Get-Date).Adddays( -(60) ); $Workstations = Get-ADComputer -Filter { LastLogonTimeStamp -gt $LastLogon -and OperatingSystem -like 'Windows 10'} -Properties *; $Workstations = $Workstations | Select-Object -Property DNSHostname,OperatingSystem,OperatingSystemVersion,IPv4Address,LastLogonDate,DistinguishedName,SID; Export-Results -Output $Workstations -Path "C:\Users\burmat\Desktop\Workstations.csv"`
+
 ### Get Hosts Last Logon
 
 Iterate all computer objects in a given domain and get the date/time for the last time they were logged into:
