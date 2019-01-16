@@ -20,6 +20,10 @@ Checking the outbox of your users' mailbox is also a good indicator to see if me
 
 `Get-Mailbox -resultsize unlimited | Get-MailboxFolderStatistics -folderscope outbox | Sort-object foldersize -Descending | Select-Object Identity,Name,Foldertype,itemsinfolder,@{Name="FolderSize MB";expression={$_.folderSize.toMB()}}`
 
+### Check for Mailbox-Level Send/Receive Restrictions
+
+`Get-Mailbox -ResultSize unlimited | Format-Table Name,MaxSendSize,MaxReceiveSize`
+
 ### Export Mailbox to .PST:
 
 Use the following to export a mailbox to a .PST file:
