@@ -16,4 +16,5 @@
 * [Helper Commands](sysadmin/helper-commands.md)
 * [Log Parsing](sysadmin/log-parsing.md)
 * [Team Foundation Server Administration](sysadmin/team-foundation-server-administration.md)
+* [SQL Server Administration](sysadmin/sql-server-administration.md)
 

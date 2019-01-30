@@ -134,3 +134,13 @@ Similar to `tail -f filename`, you can use `Get-Content` to watch a file for cha
 
  `Get-Content -Path "\\server\logs\prod.server.log" -Wait` 
 
+## MISC CLEANUP / MANAGEMENT
+
+### Clear Cached \(mscachev2\) Credentials
+
+A domain-joined endpoint that is taken from the domain might still have cached \(mscachev2\) domain logins residing on it. This is why I always wipe the system or use the following to remove any cached credentials:
+
+Run `regedit` and give your current local account Write access to the "SECURITY" node. After restarting `regedit`, navigate to:  `HKEY_LOCAL_MACHINE\Security\Cache`
+
+Cached credentials are stored in the binary values of `NL$1` through `NL$10`.  Zeroing out these values will clear the cached entries. Delete them if you want to remove them and disable this feature completely. 
+
