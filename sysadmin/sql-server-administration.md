@@ -12,7 +12,11 @@ And executing the resulting stored procedure:
 EXEC sp_help_revlogin
 ```
 
-Paste the output of this stored procedure into the destination server to bring the user account in with their original SID's and current passwords.
+Paste the output of this stored procedure into the destination server to bring the user account in with their original SID's and current passwords. You can run the following query on both servers to compare the SID's if you wish:
+
+```text
+select loginname, sid from master.sys.syslogins
+```
 
 {% hint style="info" %}
 Resource: [https://support.microsoft.com/en-us/help/918992/how-to-transfer-logins-and-passwords-between-instances-of-sql-server](https://support.microsoft.com/en-us/help/918992/how-to-transfer-logins-and-passwords-between-instances-of-sql-server)
