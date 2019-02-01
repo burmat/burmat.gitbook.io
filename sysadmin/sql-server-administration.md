@@ -22,3 +22,25 @@ select loginname, sid from master.sys.syslogins
 Resource: [https://support.microsoft.com/en-us/help/918992/how-to-transfer-logins-and-passwords-between-instances-of-sql-server](https://support.microsoft.com/en-us/help/918992/how-to-transfer-logins-and-passwords-between-instances-of-sql-server)
 {% endhint %}
 
+## LIST SERVER LEVEL PERMISSIONS
+
+To get a list of all server-level permissions, you can run the following query to dertmine if something was left over or orphaned after user login changes:
+
+```text
+SELECT name, permission_name, principal_id, sid
+FROM master.sys.server_permissions 
+LEFT JOIN master.sys.server_principals 
+ON grantee_principal_id = principal_id 
+```
+
+##  
+
+## CHANGE DB OWNER
+
+```sql
+USE [DB_NAME]
+GO
+sp_changedbowner 'sa'
+GO
+```
+
