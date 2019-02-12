@@ -6,9 +6,9 @@ description: This page is dedicated to any and all Active Directory administrati
 
 ## USER / HOST ENUMERATION
 
-### Get Username and Email Addresses
+### Get All Users
 
-`Get-ADUser -Filter * -Properties DisplayName, sAMAccountName | Select DisplayName, sAMAccountName` 
+`Get-ADUser -Filter * -Properties DisplayName, sAMAccountName, EmailAddress | Select DisplayName, sAMAccountName, EmailAddress | Export-CSV "C:\users.csv"` 
 
 ### Get Active Win10 Machine Patch Level \(Last Logon in 60 Days\)
 
