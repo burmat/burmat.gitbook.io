@@ -66,15 +66,21 @@ List all ActiveSync devices and the corresponding mailbox/user:
 
 You can get a list of devices by username with the following:
 
-`Get-ActiveSyncDeviceStatistics -Mailbox:"username" | Select-Object Identity,LastSuccessSync`
+`Get-ActiveSyncDeviceStatistics -Mailbox:"username" | Select-Object Guid,Identity,DeviceModel,LastSuccessSync | Sort-Object LastSuccessSync`
 
-I like to check in every few weeks and make sure there are not old devices laying around in the system. You can do this by running a command that will check for any device that have not sync'd in over 365 days. Generate this list with the following:
+If you want to delete one, you can simply: `Remove-ActiveSyncDevice <GUID>`
+
+You can do this by running a command that will check for any device that have not sync'd in over 365 days. Generate this list with the following:
 
 `$OldDevices = Get-ActiveSyncDevice -ResultSize unlimited | Get-ActiveSyncDeviceStatistics | where {$_.LastSyncAttemptTime -lt (Get-Date).AddDays(-365)}`
 
 And to remove them completely, you can use this:
 
 `$OldDevices | foreach-object { Remove-ActiveSyncDevice([string]$_.Guid) -confirm:$false }`
+
+You can also take a look at [a script I wrote to automate all of this](https://github.com/burmat/burmatscripts/blob/master/powershell/ActiveSyncCleanup.ps1). It will remove any ActiveSync devices that have not attempted to sync in 1 year, and it will also remove orphaned mobile devices \(e.g. the mailbox doesn't exist or the user account is disabled\). I run this quarterly to catch anything that might fall through the cracks.
+
+_\(Find my most recent copy of `ActiveSyncCleanup.ps1` on_ [_my GitHub_](https://github.com/burmat/burmatscripts/blob/master/powershell/ActiveSyncCleanup.ps1)_\)_
 
 ### List Enabled OWA Accounts
 
