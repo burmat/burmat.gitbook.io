@@ -76,6 +76,17 @@ GOTO EXIT
 echo Stop Checking %1
 ```
 
+## BASH
+
+### Comment / Uncomment Lines
+
+When you need to comment out or uncomment out a line, sed makes it pretty easy. Just change the word pattern to something identifiable:
+
+```text
+sed -i '/pattern/s/^/#/g' apache2.conf # comment
+sed -i '/pattern/s/^#//g' apache2.conf # uncomment
+```
+
 ## POWERSHELL
 
 ### Remotely Log User Out
