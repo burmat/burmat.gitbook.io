@@ -17,4 +17,6 @@
 * [Log Parsing](sysadmin/log-parsing.md)
 * [Team Foundation Server Administration](sysadmin/team-foundation-server-administration.md)
 * [SQL Server Administration](sysadmin/sql-server-administration.md)
+* [Untitled](sysadmin/untitled.md)
+* [System Fixes](sysadmin/system-fixes.md)
 
