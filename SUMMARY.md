@@ -13,10 +13,10 @@
 
 * [Active Directory Administration](sysadmin/active-directory-administration.md)
 * [Exchange Administration](sysadmin/exchange-administration.md)
+* [System Fixes](sysadmin/system-fixes.md)
 * [Helper Commands](sysadmin/helper-commands.md)
 * [Log Parsing](sysadmin/log-parsing.md)
 * [Team Foundation Server Administration](sysadmin/team-foundation-server-administration.md)
 * [SQL Server Administration](sysadmin/sql-server-administration.md)
 * [Untitled](sysadmin/untitled.md)
-* [System Fixes](sysadmin/system-fixes.md)
 
