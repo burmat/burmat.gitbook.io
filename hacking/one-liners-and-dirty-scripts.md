@@ -80,6 +80,12 @@ base64 <<< $(cat shell.py) | tr -d "\n"
 echo -n "ZmlsZSBjb250ZW50IGhlcmUK" | base64 -d > shell.py
 ```
 
+### xclip
+
+Not a true method of file transfer, but useful nonetheless:
+
+`cat /usr/share/nishang/Client/Out-HTA.ps1 | xclip -sel clip`
+
 ## REVERSE SHELLS / SHELLS
 
 ### PHP Reverse Shell - Minified
