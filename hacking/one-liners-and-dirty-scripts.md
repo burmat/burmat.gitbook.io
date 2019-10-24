@@ -58,6 +58,19 @@ regsvr32 /s /u C:\temp\payload.dll
 
 \(_Source:_ [_http://carnal0wnage.attackresearch.com/2017/08/certutil-for-delivery-of-files.html_](http://carnal0wnage.attackresearch.com/2017/08/certutil-for-delivery-of-files.html) __\)
 
+### XML File Creation on Target \(via copy/paste\)
+
+This is a clever way to get XML over to the system using copy and paste, and writing that XML to file:
+
+```text
+PS C:\> $console = [XML] @"
+<XML CODE CODE HERE>
+"@
+
+# write the xml to file:
+PS C:\> $console.save("C:\users\burmat\documents\console.xml")
+```
+
 ### Base64
 
 #### Using netcat
