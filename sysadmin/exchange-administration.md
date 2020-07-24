@@ -6,6 +6,18 @@ description: >-
 
 # Exchange Administration
 
+## EXCHANGE ONLINE / MICROSOFT 365 ADMINISTRATION
+
+### Disable Unused Features
+
+To disable IMAP, POP3, and OWA, you can just select all mailboxes and bulk-disable the features for all mailboxes.
+
+For the feature "OWA on Devices", you have to run a PowerShell command after importing a session to Exchange Online. This command can be run to bulk-update all mailboxes:
+
+```text
+Get-CASMailbox | Set-CASMailbox -OWAForDevicesEnabled $False
+```
+
 ## MAILBOX ADMINISTRATION
 
 ### Message Queue Totals
