@@ -18,6 +18,15 @@ For the feature "OWA on Devices", you have to run a PowerShell command after imp
 Get-CASMailbox | Set-CASMailbox -OWAForDevicesEnabled $False
 ```
 
+### Find Mailboxes with Inbox Rules
+
+```text
+PS C:\> $credential = Get-Credential # opens prompt to collect credentials
+PS C:\> $session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://outlook.office365.com/powershell-liveid/ -Credential $credential -Authentication Basic -AllowRedirection
+PS C:\> Import-PSSession $session
+PS C:\> $users = Get-Mailbox; ForEach ($user in $users) { Get-InboxRule -Mailbox $user.name | Select MailboxOwnerId,Name,Description | fl }
+```
+
 ## MAILBOX ADMINISTRATION
 
 ### Message Queue Totals
