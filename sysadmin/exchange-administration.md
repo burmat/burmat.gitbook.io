@@ -27,6 +27,16 @@ PS C:\> Import-PSSession $session
 PS C:\> $users = Get-Mailbox; ForEach ($user in $users) { Get-InboxRule -Mailbox $user.name | Select MailboxOwnerId,Name,Description | fl }
 ```
 
+### List Connection Filter Object Properties
+
+Listing the connection filter IP blocklist:
+
+```text
+Get-HostedConnectionFilterPolicy -Identity Default | Select-Object -ExpandProperty IPBlockList
+```
+
+
+
 ## MAILBOX ADMINISTRATION
 
 ### Message Queue Totals
