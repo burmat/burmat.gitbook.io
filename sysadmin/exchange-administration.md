@@ -10,9 +10,15 @@ description: >-
 
 ### Disable Unused Features
 
-To disable IMAP, POP3, and OWA, you can just select all mailboxes and bulk-disable the features for all mailboxes.
+To disable IMAP, POP3, and OWA, you can just select all mailboxes and bulk-disable the features for all mailboxes. Or you can use the commands below:
 
-For the feature "OWA on Devices", you have to run a PowerShell command after importing a session to Exchange Online. This command can be run to bulk-update all mailboxes:
+```text
+Get-CASMailbox | Set-CASMailbox -PopEnabled $False
+Get-CASMailbox | Set-CASMailbox -ImapEnabled $False
+Get-CASMailbox | Set-CASMailbox -OWAEnabled $False
+```
+
+For the feature "OWA on Devices", you have to run a PowerShell command after importing a session to Exchange Online.  There is no way to do it in bulk from Exchange Online's web portal. This command can be run to bulk-update all mailboxes:
 
 ```text
 Get-CASMailbox | Set-CASMailbox -OWAForDevicesEnabled $False
