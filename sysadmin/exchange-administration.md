@@ -8,29 +8,42 @@ description: >-
 
 ## EXCHANGE ONLINE / MICROSOFT 365 ADMINISTRATION
 
-### Disable Unused Features
+### Connect to Exchange Online
 
-To disable IMAP, POP3, and OWA, you can just select all mailboxes and bulk-disable the features for all mailboxes. Or you can use the commands below:
-
-```text
-Get-CASMailbox | Set-CASMailbox -PopEnabled $False
-Get-CASMailbox | Set-CASMailbox -ImapEnabled $False
-Get-CASMailbox | Set-CASMailbox -OWAEnabled $False
-```
-
-For the feature "OWA on Devices", you have to run a PowerShell command after importing a session to Exchange Online.  There is no way to do it in bulk from Exchange Online's web portal. This command can be run to bulk-update all mailboxes:
-
-```text
-Get-CASMailbox | Set-CASMailbox -OWAForDevicesEnabled $False
-```
-
-### Find Mailboxes with Inbox Rules
+Use the following to import an Exchange Online PSSession:
 
 ```text
 PS C:\> $credential = Get-Credential # opens prompt to collect credentials
 PS C:\> $session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://outlook.office365.com/powershell-liveid/ -Credential $credential -Authentication Basic -AllowRedirection
 PS C:\> Import-PSSession $session
-PS C:\> $users = Get-Mailbox; ForEach ($user in $users) { Get-InboxRule -Mailbox $user.name | Select MailboxOwnerId,Name,Description | fl }
+```
+
+### Disable Unused Features
+
+To bulk disable IMAP, POP3, and OWA, you can just select all mailboxes and disable the features \(you **cannot** bulk-disable "OWA on Devices" of "SMTP Client Authentication" mailbox features using the web portal\). 
+
+Therefore, it's best to use PowerShell ensure you disable anything unused \(MAPI and ActiveSync are left enabled with this command\):
+
+```text
+Get-CASMailbox | Set-CASMailbox -PopEnabled:$False -ImapEnabled:$False -OWAEnabled:$False -SmtpClientAuthenticationDisabled:$True -OWAForDevicesEnabled:$False
+```
+
+Turning off SMTP Authentication globally \(instead of per-mailbox\) can be achieved by modifying the Transport configuration:
+
+```text
+Set-TransportConfig -SmtpClientAuthenticationDisabled $True
+```
+
+Turning off IMAP and POP3 by default for new mailboxes can be done with a Client Access Service Plan modification \(**ensure you run the command above to disable anything that has previously been enabled!**\):
+
+```text
+Get-CASMailboxPlan | Set-CASMailboxPlan -PopEnabled:$False -ImapEnabled:$False
+```
+
+### Find Mailboxes with Inbox Rules
+
+```text
+$users = Get-Mailbox; ForEach ($user in $users) { Get-InboxRule -Mailbox $user.name | Select MailboxOwnerId,Name,Description | fl }
 ```
 
 ### List Connection Filter Object Properties
@@ -40,8 +53,6 @@ Listing the connection filter IP blocklist:
 ```text
 Get-HostedConnectionFilterPolicy -Identity Default | Select-Object -ExpandProperty IPBlockList
 ```
-
-
 
 ## MAILBOX ADMINISTRATION
 
