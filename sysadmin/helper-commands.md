@@ -126,6 +126,41 @@ netsh advfirewall firewall add rule name="Open the Gates" dir=out action=allow p
 ```
 {% endcode %}
 
+### SMTP
+
+```
+## base64 the username and password and pass the values through telnet
+
+# echo -n "username" | openssl enc -base64
+dXNlcm5hbWU=
+
+# echo -n "Welcome1" | openssl enc -base64
+V2VsY29tZTE=
+
+# openssl s_client -connect 169.133.88.123:25 -starttls smtp -quiet -crlf
+<-- SNIP --> 
+250 XRDST
+# AUTH LOGIN
+334 VXNlcm5hbWU6
+# Z2R1YXJ0ZUBoZXJzaGV5cy5jb20=
+334 UGFzc3dvcmQ6
+# V2VsY29tZTE=
+535 5.7.3 Authentication unsuccessful << will be successful, if you are able to
+
+
+# EHLO target.com
+# MAIL FROM: victim@target.com
+# RCPT TO: <outside@user.com>  NOTIFY=success,failure
+# DATA
+# Subject: Test Email
+
+body of the message
+.
+
+
+EXIT
+```
+
 ## BASH
 
 ### Comment / Uncomment Lines
