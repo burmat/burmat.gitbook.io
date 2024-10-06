@@ -1,24 +1,14 @@
 ---
 description: This page is dedicated to any and all Active Directory administration
 ---
-
 # Active Directory Administration
-
-## USER / HOST ENUMERATION
-
-### Get All Users
-
-`Get-ADUser -Filter * -Properties DisplayName, sAMAccountName, EmailAddress | Select DisplayName, sAMAccountName, EmailAddress | Export-CSV "C:\users.csv"` 
-
-### Get Active Win10 Machine Patch Level \(Last Logon in 60 Days\)
-
-`$LastLogon = (Get-Date).Adddays( -(60) ); $Workstations = Get-ADComputer -Filter { LastLogonTimeStamp -gt $LastLogon -and OperatingSystem -like 'Windows 10'} -Properties *; $Workstations = $Workstations | Select-Object -Property DNSHostname,OperatingSystem,OperatingSystemVersion,IPv4Address,LastLogonDate,DistinguishedName,SID; Export-Results -Output $Workstations -Path "C:\Users\burmat\Desktop\Workstations.csv"`
-
-### Get Hosts Last Logon
-
+## Get Active Win10 Machine Patch Level \(Last Logon in 60 Days\)
+```powershell
+$LastLogon = (Get-Date).Adddays( -(60) ); $Workstations = Get-ADComputer -Filter { LastLogonTimeStamp -gt $LastLogon -and OperatingSystem -like 'Windows 10'} -Properties *; $Workstations = $Workstations | Select-Object -Property DNSHostname,OperatingSystem,OperatingSystemVersion,IPv4Address,LastLogonDate,DistinguishedName,SID; Export-Results -Output $Workstations -Path "C:\Users\burmat\Desktop\Workstations.csv"
+```
+## Get Hosts Last Logon
 Iterate all computer objects in a given domain and get the date/time for the last time they were logged into:
-
-```text
+```powershell
 Import-Module ActiveDirectory
 
 function Get-ADHostsLastLogon() {
@@ -44,18 +34,13 @@ function Get-ADHostsLastLogon() {
 
 Get-ADHostsLastLogon
 ```
-
 _\(Find my most recent copy on_ [_my GitHub_](https://github.com/burmat/burmatscripts/blob/master/powershell/Get-ADHostsLastLogon.ps1)_\)_
-
-### Get Users Last Logon
-
+## Get Users Last Logon
 To iterate all user objects in AD and get their last logon time, use:
-
-```text
+```powershell
 Import-Module ActiveDirectory
 
 function Get-ADUserLastLogon([string]$userName) {
-
     $dcs = Get-ADDomainController -Filter {Name -like "*"}
     $time = 0
     foreach($dc in $dcs) { 
@@ -65,22 +50,16 @@ function Get-ADUserLastLogon([string]$userName) {
             $time = $user.LastLogon
         }
     }
-    
     $dt = [DateTime]::FromFileTime($time)
     Write-Host $username "last logged on at:" $dt 
 }
-
 $unames = Get-ADUser -Filter 'ObjectClass -eq "User"' | Select -Expand SamAccountName
 foreach ($uname in $unames) { Get-ADUserLastLogon($uname); } 
 ```
-
 _\(Find my most recent copy on_ [_my GitHub_](https://github.com/burmat/burmatscripts/blob/master/powershell/Get-ADUserLastLogon.ps1)_\)_
-
-### Get Stale Hosts
-
+## Get Stale Hosts
 Use the following to generate a list of hosts that have not been logged into for the past 30 days:
-
-```text
+```powershell
 Import-Module ActiveDirectory
 
 function Get-StaleComputers() {
@@ -91,34 +70,20 @@ function Get-StaleComputers() {
 
 Get-StaleComputers
 ```
-
 _\(Find my most recent copy on_ [_my GitHub_](https://github.com/burmat/burmatscripts/blob/master/powershell/Get-ADStaleHosts.ps1)_\)_
-
-## DOMAIN MAINTENANCE
-
-### Move Object to Retire OU
-
+## Move Object to Retire OU
 I like to use the scripts above \([Get Hosts Last Logon](https://burmat.gitbook.io/security/~/drafts/-LNR5JMBrAPfNXI0R06-/primary/sysadmin/active-directory-administration#get-hosts-last-logon) and [Get Users Last Logon](https://burmat.gitbook.io/security/~/edit/drafts/-LNR5JMBrAPfNXI0R06-/sysadmin/active-directory-administration#get-users-last-logon)\) to automatically move objects into the "Retire" OU using the following command\(s\):
-
-```text
+```powershell
 # to move a user:
  Get-ADUser $uname | Move-ADObject -TargetPath 'OU=Retire,DC=burmat,DC=co' 
  
 # to move a computer:
  Get-ADComputer $hname | Move-ADObject -TargetPath 'OU=Retire,DC=burmat,DC=co' 
 ```
-
 It's now trivial to [disable all objects in the given OU](https://burmat.gitbook.io/security/~/edit/drafts/-LNR5JMBrAPfNXI0R06-/sysadmin/active-directory-administration#disable-everything-in-ou).
-
-### Disable Everything in OU
-
+## Disable Everything in OU
 Every few weeks, I run the following \(as Domain Admin\) to ensure the OU I use for my "Recycle Bin" is filled with only disabled accounts:
-
 `Get-ADUser -Filter * -SearchBase 'OU=Retire,DC=burmat,DC=co' | Disable-ADAccount` 
-
-### Set Domain User Password
-
-`$uname = 'burmat'; $pass = "Password123!'; $securepass = ConvertTo-SecureString $pass -AsPlainText -Force; Set-DomainUserPassword -Identity $uname -AccountPassword $securepass;`
 
 ## FILE SYSTEM ADMINISTRATION
 
