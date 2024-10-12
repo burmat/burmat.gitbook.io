@@ -92,7 +92,6 @@ Every few weeks, I run the following \(as Domain Admin\) to ensure the OU I use 
 I use the following command to generate a list of user profile's on a file server. It is useful to keep track of users that are exceeding our expectations when it comes to consuming space on a global server:
 
 `Get-ChildItem | Where-Object { $.PSIsContainer } | ForEach-Object { $.Name + ": " + "{0:N2}" -f ((Get-ChildItem $_ -Recurse | Measure-Object Length -Sum -ErrorAction SilentlyContinue).Sum / 1MB) + " MB" }`
-
 ### Tail a File
 
 Similar to `tail -f filename`, you can use `Get-Content` to watch a file for changes:
@@ -101,7 +100,7 @@ Similar to `tail -f filename`, you can use `Get-Content` to watch a file for cha
 
 ## MISC CLEANUP / MANAGEMENT
 
-### Clear Cached \(mscachev2\) Credentials
+### Clear Cached \(MsCacheV2\) Credentials
 
 A domain-joined endpoint that is taken from the domain might still have cached \(mscachev2\) domain logins residing on it. This is why I always wipe the system or use the following to remove any cached credentials:
 
