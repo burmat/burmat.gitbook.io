@@ -13,6 +13,7 @@
   * [Lateral Movement](hacking/domain-exploitation/lateral-movement.md)
   * [Persistence](hacking/domain-exploitation/persistence.md)
   * [Command and Control](hacking/domain-enumeration-+-exploitation/command-and-control.md)
+  * [Defense Evasion](hacking/domain-enumeration-+-exploitation/defense-evasion.md)
 * [MSFvenom Cheetsheet](hacking/msfvenom-cheetsheet.md)
 * [OSCP / PWK - Random Tips and Tricks](hacking/oscp-pwk-random-tips-and-tricks.md)
 
