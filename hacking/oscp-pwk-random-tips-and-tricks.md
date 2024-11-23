@@ -1,11 +1,8 @@
----
-description: >-
-  I recently completed OSCP (OS-39215, 08/2018), and came out the other side
-  with a few tips-and-tricks for those that are looking for them.  All IP
-  addresses and hostnames have been changed/redacted.
----
-
 # OSCP / PWK - Random Tips and Tricks
+
+{% hint style="info" %}
+This was written back in 2018 and therefore may not be relevant to anyone. But maybe it's relevant to a single person, so I'm keeping it around.
+{% endhint %}
 
 ## NOTE-TAKING
 
