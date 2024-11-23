@@ -26,7 +26,7 @@
 
 * `cat users.json | jq '.data[].Properties | select( .enabled == true ) | .name'`
 
-#### **Show all usernames and descriptions for disabled/enabled users **_**(check for passwords in the description field!)**_**:**
+#### **Show all usernames and descriptions for disabled/enabled users&#x20;**_**(check for passwords in the description field!)**_**:**
 
 * `cat users.json | jq '.data[].Properties | select( .enabled == false ) | .name + " " + .description'`
 
@@ -38,11 +38,11 @@
 
 * `cat users.json | jq '.data[].Properties | select( .enabled == true) | select( .description != null ) | .name + " " + (.lastlogontimestamp|tostring)'`
 
-#### **Show all enabled users and their** `lastlogin` **value **_**(if it’s**_ `1`_**, the account hasn’t been logged into and you should target it for password spraying!)**_**:**
+#### **Show all enabled users and their** `lastlogin` **value&#x20;**_**(if it’s**_ `1`_**, the account hasn’t been logged into and you should target it for password spraying!)**_**:**
 
 * `cat users.json | jq '.data[].Properties | select( .enabled == true) | select( .description != null ) | .name + " " + (.lastlogin|tostring)'`
 
-**Show enabled users that have a passwords last set that is greater than the last logon of the computer **_**(password reset but never logged in? password spray it!!!)**_**:**
+**Show enabled users that have a passwords last set that is greater than the last logon of the computer&#x20;**_**(password reset but never logged in? password spray it!!!)**_**:**
 
 * `cat users.json | jq '.data[].Properties | select( .enabled == true) | select( .pwdlastset > .lastlogontimestamp ) | .name + " " + (.lastlogin|tostring)'`
 
