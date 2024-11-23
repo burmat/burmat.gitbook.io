@@ -57,7 +57,7 @@ Use a Plunder Bug to connect a laptop, Shark Jack, and WAN port all at the same 
 * Basic tutorial: [https://docs.hak5.org/shark-jack/beginner-guides/writing-a-simple-payload](https://docs.hak5.org/shark-jack/beginner-guides/writing-a-simple-payload)
 * Payloads: [https://github.com/hak5/sharkjack-payloads](https://github.com/hak5/sharkjack-payloads)
 
-## upgrading firmware
+### Firmware Upgrade
 
 {% hint style="warning" %}
 PULLING THE DEVICE BEFORE THE UPGRADE COMPLETES WILL LIKELY BRICK YOUR DEVICE. IF YOU DO NOT HAVE A RELIABLE POWER SOURCE YOU MAY BRICK YOUR DEVICE
