@@ -54,4 +54,4 @@ if __name__ == "__main__":
 
 You should be able to crack it with this:
 
-`hashcat -m 5400 ike.hash -a 3 ?a?a?a?a?a?a?a -i -w4 -0`
+`hashcat -m 5400 ike.hash -a 3 ?a?a?a?a?a?a?a -i -w4 -O`

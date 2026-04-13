@@ -2,14 +2,14 @@
 
 ## Basic Usage
 
-A common sub-domain enumeration command:
+A common subdomain enumeration command:
 
-`amass enum -v -src -ip -brute -min-for-recursive 2 -oA amass_results -d domain1.com,domain2.com`
+`amass enum -v -src -ip -brute -min-for-recursive 2 -oA amass_results -d burmat.co,example.com`
 
 * `-src` will print data sources for discovered names
 * `-ip` will print the corresponding IP address
 * `-brute` will perform a brute-force subdomain check
-* `-min-for-recursive` is the number of subdomain levels seen before recursive brute-forcing (e.g. idk what this means, but the default is `1`)
+* `-min-for-recursive` is the number of subdomain levels seen before recursive brute-forcing (default is `1`)
 
 the "database" file is located here, in case you want to clear it out:
 
@@ -21,9 +21,9 @@ User Guide:
 
 ## Comparing Discovered Subdomains to Existing IP Scope
 
-The client provided domains that they would like their subdomains discovered for, as well as the \~9K IPs they provided.
+The client provided domains that they would like their subdomains discovered for, as well as the ~9K IPs they provided.
 
-* `amass enum -v -src -ip -brute -min-for-recursive 2 -oA amass_results -d domain1.com,domain2.com,domain3.net,domain4.co,domain5.ne`
+* `amass enum -v -src -ip -brute -min-for-recursive 2 -oA amass_results -d burmat.co,example.com,target.net`
 
 You can get a rough idea of the hosts with:
 
@@ -61,7 +61,7 @@ We can output the results to a text file with the `-o` flag. This is useful beca
 We are going to use docker's `-v` switch to share the "/shared" directory between the host environment and the container's environment, hence anything we store in the "/shared" directory will still be accessible even after the docker container has finished running:
 
 ```sh
-amass -o /shared/results_subdomains_amass.txt -d lizardblue.com
+amass -o /shared/results_subdomains_amass.txt -d burmat.co
 ```
 
 We can now view the content of the text file with the cat command, even though the docker container using amass is no longer running.

@@ -1,24 +1,22 @@
 # Shodan
 
-## 📖 Basic Usage Scenarios and Queries:
+## Basic Usage Scenarios and Queries
 
-Shodan is a great source to begin looking for hosts that the parent organization owns. Shodan aggregates this information by banner grabbing and collecting information being leaked by insecure devices. The discovered information is then categorized and stored in a large database that users can search by type of device, brand name, operating system, location, and more. It is important to note that to use Shodan, you must have an account.
+Shodan is a search engine that aggregates information by banner grabbing and collecting data leaked by internet-connected devices. The discovered information is categorized and stored in a searchable database by device type, brand name, operating system, location, and more. An account is required to use Shodan effectively.
 
-### ⛹️‍♂️ Basic Usage
+### Basic Usage
 
-For this example, we will leverage Shodan’s search engine. Our first search is a generic organization search to see what we can find on the organization using the following command:
+For this example, we will leverage Shodan's search engine. Start with a generic organization search to see what can be found:
 
 * `org:"Organization_Name"`
 
-This usually only returns a hand full of results, but it is still important to mention. To take it a step further, we will leverage Shodan’s SSL certificate searching function. To minimize the potential for stale records, we will have Shodan only return IP’s that respond with a 200 status code using the following command:
+This usually only returns a handful of results, but it is still important. To take it further, leverage Shodan's SSL certificate searching function. To minimize the potential for stale records, have Shodan only return IPs that respond with a 200 status code:
 
 * `ssl:"Organization_Name" 200`
 
-To show the amount of noise you get when searching without the 200 status code included, I queried Shodan against the organization “burmat.co”. Without specifying the required 200 status code, the query returned 152 results. With the required 200 status code, it returned only 7 results.
+To show the amount of noise you get when searching without the 200 status code included, I queried Shodan against the organization "burmat.co". Without specifying the required 200 status code, the query returned 152 results. With the required 200 status code, it returned only 7 results.
 
-### 🔬 Shodan Queries
-
-Fill in queries!
+### Shodan Queries
 
 #### Search Query Indexes
 
@@ -46,19 +44,53 @@ Below is a link toe a list of favicon hashes. You can use these in a query like 
 * `os:"Windows 10 Home 19041"` - Checking for vulnerable operating system
 * `country:"IN" os:"windows 7"` - Search by OS and country
 
-#### Exposed C2 hosts
+#### Exposed C2 Hosts
 
 ```bash
-metasploit C2: https://www.shodan.io/search?query=ssl%3A%22MetasploitSelfSignedCA%22
-cobalt strike C2: https://www.shodan.io/search?query=product%3A%22Cobalt+Strike+Beacon%22
-covenant: https://www.shodan.io/search?query=ssl%3A%E2%80%9DCovenant%E2%80%9D%20http.component%3A%E2%80%9DBlazor%E2%80%9D
-mythic c2: https://www.shodan.io/search?query=ssl%3AMythic+port%3A7443
-brute ratel C4: https://www.shodan.io/search?query=http.html_hash%3A-1957161625
+# Metasploit C2
+https://www.shodan.io/search?query=ssl%3A%22MetasploitSelfSignedCA%22
+
+# Cobalt Strike C2
+https://www.shodan.io/search?query=product%3A%22Cobalt+Strike+Beacon%22
+
+# Covenant C2
+https://www.shodan.io/search?query=ssl%3A%E2%80%9DCovenant%E2%80%9D%20http.component%3A%E2%80%9DBlazor%E2%80%9D
+
+# Mythic C2
+https://www.shodan.io/search?query=ssl%3AMythic+port%3A7443
+
+# Brute Ratel C4
+https://www.shodan.io/search?query=http.html_hash%3A-1957161625
+```
+
+#### Exposed Infrastructure
+
+```bash
+# Docker registries
+product:"Docker Registry"
+
+# Kubernetes dashboards
+http.title:"Kubernetes Dashboard"
+
+# Redis (no auth)
+product:"Redis" -authentication
+
+# MongoDB (no auth)
+product:"MongoDB" -authentication "port:27017"
+
+# Elasticsearch (open)
+product:"Elasticsearch" http.status:200
+
+# Exposed etcd
+product:"etcd"
+
+# Grafana with default creds
+http.title:"Grafana" http.favicon.hash:1485257654
 ```
 
 ***
 
-## 🛠 Shodan Command Line Tools Installation
+## Shodan Command Line Tools Installation
 
 You can get your API key after signing into your account via browser and clicking on account in the top right corner.
 
@@ -67,7 +99,7 @@ You can get your API key after signing into your account via browser and clickin
 
 ***
 
-### 🍼 Basic Command Line Usage
+### Basic Command Line Usage
 
 [https://github.com/lothos612/shodan](https://github.com/lothos612/shodan)
 
@@ -78,7 +110,7 @@ You can get your API key after signing into your account via browser and clickin
 
 ***
 
-### ➰ Looping Hosts with Shodan CLI
+### Looping Hosts with Shodan CLI
 
 Good way to quickly pull host data, port data, and CVE data.
 

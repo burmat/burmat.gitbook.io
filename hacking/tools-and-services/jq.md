@@ -26,7 +26,7 @@
 
 * `cat users.json | jq '.data[].Properties | select( .enabled == true ) | .name'`
 
-#### **Show all usernames and descriptions for disabled/enabled users&#x20;**_**(check for passwords in the description field!)**_**:**
+#### Show all usernames and descriptions for disabled/enabled users (check for passwords in the description field!):
 
 * `cat users.json | jq '.data[].Properties | select( .enabled == false ) | .name + " " + .description'`
 
@@ -42,7 +42,7 @@
 
 * `cat users.json | jq '.data[].Properties | select( .enabled == true) | select( .description != null ) | .name + " " + (.lastlogin|tostring)'`
 
-**Show enabled users that have a passwords last set that is greater than the last logon of the computer&#x20;**_**(password reset but never logged in? password spray it!!!)**_**:**
+**Show enabled users that have a password last set that is greater than the last logon of the computer (password reset but never logged in? password spray it!):**
 
 * `cat users.json | jq '.data[].Properties | select( .enabled == true) | select( .pwdlastset > .lastlogontimestamp ) | .name + " " + (.lastlogin|tostring)'`
 
